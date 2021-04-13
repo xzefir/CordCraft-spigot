@@ -1,0 +1,5 @@
+name: CordCraft
+version: @version@
+main: fr.xzefir.cordcraft.spigot.CordCraft
+description: Official CordCraft Discord bot plugin, by xzefir.
+author: xzefir
