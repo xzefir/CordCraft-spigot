@@ -1,0 +1,12 @@
+fr/xzefir/cordcraft/spigot/request/Receiver.java
+ fr.xzefir.cordcraft.spigot.request.Receiver
+fr/xzefir/cordcraft/spigot/request/Sender.java
+ fr.xzefir.cordcraft.spigot.request.Sender
+fr/xzefir/cordcraft/spigot/CordCraft.java
+ fr.xzefir.cordcraft.spigot.CordCraft
+fr/xzefir/cordcraft/spigot/DiscordMessage.java
+ fr.xzefir.cordcraft.spigot.DiscordMessage
+fr/xzefir/cordcraft/spigot/utils/GenerateToken.java
+ fr.xzefir.cordcraft.spigot.utils.GenerateToken
+fr/xzefir/cordcraft/spigot/ServerListener.java
+ fr.xzefir.cordcraft.spigot.ServerListener

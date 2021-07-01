@@ -1,9 +1,11 @@
 package fr.xzefir.cordcraft.spigot.request;
 
-import fi.iki.elonen.NanoHTTPD;
 import fr.xzefir.cordcraft.spigot.CordCraft;
 import fr.xzefir.cordcraft.spigot.DiscordMessage;
 import org.bukkit.Bukkit;
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.NanoHTTPD;
+import org.nanohttpd.protocols.http.response.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,33 +14,49 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
+import static org.nanohttpd.protocols.http.response.Response.newFixedLengthResponse;
+
 public class Receiver extends NanoHTTPD {
 
-    public Receiver(String port) throws IOException {
-        super(Integer.parseInt(port));
+    String configGuildID = CordCraft.getInstance().guildID;
+    String configToken = CordCraft.getInstance().token;
+
+    public Receiver(Integer port) throws IOException {
+        super(port);
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     }
 
     @Override
     public Response serve(IHTTPSession session) {
-        Map<String, String> parms = session.getParms();
+        Map<String, String> params = session.getParms();
 
-        String msg = GetStringURL(String.format(CordCraft.API_URL + "?action=testConnect&token=%s&guildid=%s", CordCraft.token, CordCraft.guildID));
-        String token = parms.get("token");
-        String guildID = parms.get("guildID");
-        String action = parms.get("action");
+        String msg = GetStringURL(String.format(CordCraft.API_URL + "?action=testConnect&token=%s&guildid=%s", configToken, configGuildID));
+        String token = params.get("token");
+        String guildID = params.get("guildID");
+        String action = params.get("action");
 
-        if (parms.get("version") != null)
+        if (params.get("version") != null)
             msg = CordCraft.VERSION;
         else if (token != null && guildID != null) {
-            if (token.equals(CordCraft.token) && guildID.equals(CordCraft.guildID)) {
+            if (token.equals(configToken) && guildID.equals(configGuildID)) {
                 if (action.equals("sendMessage")) {
-                    String message = parms.get("msg");
+                    String message = params.get("msg");
                     DiscordMessage.sendMessage(message);
                 }
                 if (action.equals("infoServ")) {
-                    String tps = String.valueOf("error");
-                    String playerOnline = String.valueOf(Bukkit.getServer().getOnlinePlayers().stream().count());
+                    boolean paper;
+                    try {
+                        Class.forName("com.destroystokyo.paper.utils.PaperPluginLogger");
+                        paper = true;
+                    } catch (ClassNotFoundException e) {
+                        paper = false;
+                    }
+
+                    String tps;
+                    if (paper) {
+                        tps = String.valueOf(Bukkit.getTPS()[0]);
+                    } else tps = "Error";
+                    String playerOnline = String.valueOf((long) Bukkit.getServer().getOnlinePlayers().size());
                     String maxplayer = String.valueOf(Bukkit.getServer().getMaxPlayers());
                     msg = String.format("%s-%s-%s", tps, playerOnline, maxplayer);
                 }
@@ -59,9 +77,7 @@ public class Receiver extends NanoHTTPD {
             in.close();
             con.disconnect();
         }
-        catch(IOException ignored){
-
-        }
+        catch(IOException ignored){}
     }
 
     public static String GetStringURL(String url) {
@@ -74,7 +90,7 @@ public class Receiver extends NanoHTTPD {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer content = new StringBuffer();
+            StringBuilder content = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }

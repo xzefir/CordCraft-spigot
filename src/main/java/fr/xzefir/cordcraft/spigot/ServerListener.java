@@ -11,12 +11,15 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ServerListener implements Listener {
 
+    String guildID = CordCraft.getInstance().guildID;
+    String token = CordCraft.getInstance().token;
+
     @EventHandler
     public void onMessage(AsyncPlayerChatEvent event) {
         String msg = event.getMessage();
         String pseudo = event.getPlayer().getName();
 
-        Sender.sendMessageToDiscord(msg, pseudo);
+        Sender.sendMessageToDiscord(msg, pseudo, token, guildID);
     }
 
     @EventHandler
@@ -25,7 +28,7 @@ public class ServerListener implements Listener {
 
         String pseudo = p.getName();
 
-        Sender.sendDeathToDiscord(pseudo);
+        Sender.sendDeathToDiscord(pseudo, token, guildID);
     }
 
     @EventHandler
@@ -34,7 +37,7 @@ public class ServerListener implements Listener {
 
         String pseudo = p.getName();
 
-        Sender.sendLoginToDiscord(pseudo);
+        Sender.sendLoginToDiscord(pseudo, token, guildID);
     }
 
     @EventHandler
@@ -43,6 +46,6 @@ public class ServerListener implements Listener {
 
         String pseudo = p.getName();
 
-        Sender.sendQuitToDiscord(pseudo);
+        Sender.sendQuitToDiscord(pseudo, token, guildID);
     }
 }

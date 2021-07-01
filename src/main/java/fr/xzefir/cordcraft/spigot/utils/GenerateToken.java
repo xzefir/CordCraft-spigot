@@ -6,7 +6,7 @@ import org.json.JSONObject;
 public class GenerateToken {
 
     public static String createToken() {
-        String token = "";
+        String token;
 
         String API_URL = "https://api.motdepasse.xyz/create/?include_digits&include_lowercase&include_uppercase&password_length=42&quantity=1";
         String JSON = Receiver.GetStringURL(API_URL);

@@ -1,0 +1,27 @@
+# +----------------------------------------------------------------------------+ #
+# |                       CordCraft Plugin Configuration                       | #
+# |                                                                            | #
+# |                                Source Code :                               | #
+# |                    https://github.com/xzefir/CordCraft-bot                 | #
+# |                                                                            | #
+# |                                 Update at :                                | #
+# |              https://www.spigotmc.org/resources/cordcraft.91261/           | #
+# +----------------------------------------------------------------------------+ #
+
+# DO NOT TOUCH, IT WILL BREAK THE PLUGIN
+config-version: 3
+
+# Enable or not the plugin (Default : true)
+bot-enabeld: true
+
+# Set the port of your Server, same as your port set in your server.properties (Default : 25565)
+port: 25565
+
+# Discord part :
+
+# Set your Discord Guild ID (Right click on your server icon then Copy ID)
+guild-id: '0000'
+
+# Your secret Token, to secure the connexion between the CordCraft Bot and the Plugin
+# It will be automatically generated on Plugin Startup
+secret-token:

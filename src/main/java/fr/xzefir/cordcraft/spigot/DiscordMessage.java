@@ -9,7 +9,7 @@ public class DiscordMessage {
         String messagetext = msg.replaceAll("&", "§");
 
         CordCraft.logger.info(messagetext);
-        for (Player OnlinePlayer : Bukkit.getServer().getOnlinePlayers()){
+        for (Player OnlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
             OnlinePlayer.sendMessage(messagetext);
         }
     }
