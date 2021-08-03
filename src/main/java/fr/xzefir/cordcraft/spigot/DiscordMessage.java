@@ -6,11 +6,11 @@ import org.bukkit.entity.Player;
 public class DiscordMessage {
 
     public static void sendMessage(String msg) {
-        String messagetext = msg.replaceAll("&", "§");
+        String textMessage = msg.replaceAll("&", "§");
 
-        CordCraft.logger.info(messagetext);
+        CordCraft.logger.info(textMessage);
         for (Player OnlinePlayer : Bukkit.getServer().getOnlinePlayers()){
-            OnlinePlayer.sendMessage(messagetext);
+            OnlinePlayer.sendMessage(textMessage);
         }
     }
 }
