@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 public class DiscordMessage {
 
     public static void sendMessage(String msg) {
+
         String textMessage = msg.replaceAll("&", "§");
 
         CordCraft.logger.info(textMessage);

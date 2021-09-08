@@ -21,28 +21,19 @@ public class ServerListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        Player p = event.getEntity();
-
-        String pseudo = p.getName();
-
+        String pseudo = event.getEntity().getName();
         Sender.sendDeathToDiscord(pseudo);
     }
 
     @EventHandler
     public void onLogin(PlayerJoinEvent event) {
-        Player p = event.getPlayer();
-
-        String pseudo = p.getName();
-
+        String pseudo = event.getPlayer().getName();
         Sender.sendLoginToDiscord(pseudo);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        Player p = event.getPlayer();
-
-        String pseudo = p.getName();
-
+        String pseudo = event.getPlayer().getName();
         Sender.sendQuitToDiscord(pseudo);
     }
 }
